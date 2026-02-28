@@ -12,7 +12,7 @@ return {
             -- Mapping para mostrar diagnósticos manualmente
             vim.keymap.set("n", "<C-t>", vim.diagnostic.open_float)
              local diagnostics_enabled = false
-            vim.keymap.set("n", "<C-n>", function()
+            vim.keymap.set("n", "<C-e>", function()
                 diagnostics_enabled = not diagnostics_enabled
                 vim.diagnostic.config({
                     virtual_text = false,               -- Texto de aviso depois da linha

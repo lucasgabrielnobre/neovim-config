@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>vv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>v", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>hb", function()
   local build_path = "code\\build.bat"
   if vim.fn.filereadable(build_path) == 1 then
@@ -13,7 +13,7 @@ vim.keymap.set("n", "<leader>hv", function()
 end)
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ")})

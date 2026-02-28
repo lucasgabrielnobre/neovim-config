@@ -1,4 +1,5 @@
 require("lucas.lazy")
 require("lucas.remap")
 require("lucas.code-style")
-require("lucas.colorscheme")
+--require("lucas.colorschemes.grubbox")
+require("lucas.colorschemes.kanagawa")
