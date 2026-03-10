@@ -8,6 +8,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.cmd("startinsert")
   end,
 })
+vim.opt.showmode = false
+vim.opt.cmdheight = 0
 require("lucas.lazy")
 require("lucas.remap")
 require("lucas.code-style")

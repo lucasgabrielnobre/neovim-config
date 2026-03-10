@@ -18,9 +18,13 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("lazy").setup({
-  spec = {
-    { import = "lucas.plugins" },
-  },
-  install = { colorscheme = { "habamax" } },
-  checker = { enabled = true },
+    spec = {
+        { import = "lucas.plugins" },
+    },
+    install = { colorscheme = { "kanagawa" } },
+    checker = { enabled = false },
+    change_detection = {
+        notify = false,
+    },
 })
+

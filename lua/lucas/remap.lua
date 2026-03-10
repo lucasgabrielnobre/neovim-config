@@ -24,3 +24,5 @@ vim.keymap.set("n", "<F5>", function()
   vim.cmd("w")
   vim.cmd("split | terminal g++ -std=c++17 -Wall -O2 % -o %:r && ./%:r")
 end)
+
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
