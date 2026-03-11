@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 vim.opt.showmode = false
 vim.opt.cmdheight = 0
+vim.o.splitright = true;
 require("lucas.lazy")
 require("lucas.remap")
 require("lucas.code-style")
