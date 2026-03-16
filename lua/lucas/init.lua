@@ -1,18 +1,25 @@
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    vim.cmd("lcd %:p:h")
-  end
-})
+vim.opt.autochdir = true
+
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.cmd("startinsert")
   end,
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*.cpp",
+    callback = function()
+        if vim.fn.line("$") == 1 and vim.fn.getline(1) == "" then
+            vim.cmd("0r ~/.config/nvim/templates/cpp.cpp")
+        end
+    end
+})
 vim.opt.showmode = false
 vim.opt.cmdheight = 0
-vim.o.splitright = true;
+vim.o.wrap = false;
+
 require("lucas.lazy")
 require("lucas.remap")
 require("lucas.code-style")
---require("lucas.colorschemes.grubbox")
+--require("lucas.colorschemes.gruvbox")
 require("lucas.colorschemes.kanagawa")
