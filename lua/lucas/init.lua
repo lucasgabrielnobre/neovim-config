@@ -19,7 +19,8 @@ vim.opt.cmdheight = 0
 vim.o.wrap = false;
 
 require("lucas.lazy")
-require("lucas.remap")
+require("lucas.remaps")
 require("lucas.code-style")
 --require("lucas.colorschemes.gruvbox")
 require("lucas.colorschemes.kanagawa")
+--require("lucas.colorschemes.tokyonight")

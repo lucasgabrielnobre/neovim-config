@@ -15,9 +15,12 @@ require('kanagawa').setup({
         palette = {},
         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
     },
-    overrides = function(colors) -- add/modify highlights
-        return {}
-    end,
+    overrides = function(colors)
+        return {
+            LineNr = { bg = "none" },
+            CursorLineNr = { bg = "none" },
+        }
+    end,    
     theme = "wave",              -- Load "wave" theme
     background = 
     {               -- map the value of 'background' option to a theme
