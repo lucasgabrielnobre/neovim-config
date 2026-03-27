@@ -16,11 +16,21 @@ require('kanagawa').setup({
         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
     },
     overrides = function(colors)
+        local palette = colors.palette
         return {
             LineNr = { bg = "none" },
             CursorLineNr = { bg = "none" },
+            ["@punctuation.bracket"] = { link = "Normal" },
+            ["@punctuation.bracket.cpp"] = { link = "Normal" },
+            RainbowDelimiterRed    = { fg = palette.samuraiRed },
+            RainbowDelimiterYellow = { fg = palette.carpYellow },
+            RainbowDelimiterBlue   = { fg = palette.crystalBlue },
+            RainbowDelimiterOrange = { fg = palette.surimiOrange },
+            RainbowDelimiterGreen  = { fg = palette.springGreen },
+            RainbowDelimiterViolet = { fg = palette.oniViolet },
+            RainbowDelimiterCyan   = { fg = palette.waveAqua1 },
         }
-    end,    
+    end,
     theme = "wave",              -- Load "wave" theme
     background = 
     {               -- map the value of 'background' option to a theme

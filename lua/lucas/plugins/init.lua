@@ -1,5 +1,43 @@
 return {
-    {
+{
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    tag = "v0.9.3",
+    config = function()
+        require('nvim-treesitter.configs').setup {
+            ensure_installed = { 'cpp', 'python', 'lua' },
+            highlight = {
+                enable = true,
+            },
+        }
+    end
+},
+{
+        "HiPhish/rainbow-delimiters.nvim",
+        config = function()
+            local rainbow_delimiters = require("rainbow-delimiters")
+
+           vim.g.rainbow_delimiters = {
+                strategy = {
+                    [''] = rainbow_delimiters.strategy.global,
+                },
+                query = {
+                    [''] = 'rainbow-delimiters',
+                    ['cpp'] = 'rainbow-delimiters',
+                },
+                highlight = {
+                    'RainbowDelimiterViolet',
+                    'RainbowDelimiterYellow',
+                    'RainbowDelimiterBlue',
+                    'RainbowDelimiterOrange',
+                    --'RainbowDelimiterGreen',
+                    'RainbowDelimiterCyan',
+                },
+            }
+        end,
+    },
+
+{
     "mfussenegger/nvim-dap",
     dependencies = {
         "rcarriga/nvim-dap-ui",
@@ -14,13 +52,38 @@ return {
         require("nvim-dap-virtual-text").setup()
 
         --  Adapter C++ (usando GDB)
+	--[[
         dap.adapters.cppdbg = {
             id = "cppdbg",
             type = "executable",
             command = "gdb",
             args = { "--interpreter=dap", "--quiet" }
         }
-
+        
+	--]]
+        dap.adapters.codelldb = {
+            type = "server",
+            port = "${port}",
+            executable = {
+                command = "codelldb",
+                args = {"--port", "${port}"},
+            }
+        }
+	
+        dap.configurations.cpp = {
+            {
+                name = "Debug C++ (codelldb)",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                    return vim.fn.input('Path do executável: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                cwd = "${workspaceFolder}",
+                stopAtEntry = true,
+                console = "integratedTerminal",
+            },
+        }
+        --[[
         --  Configuração de debug
         dap.configurations.cpp = {
             {
@@ -33,9 +96,10 @@ return {
                 cwd = "${workspaceFolder}",
                 stopAtEntry = true,
                 args = {},
-                runInTerminal = false,
+                runInTerminal = true,
             },
         }
+        --]]
 
         -- C usa a mesma config
         dap.configurations.c = dap.configurations.cpp
@@ -62,8 +126,14 @@ return {
         end
     end,
 },
+{
+    "williamboman/mason.nvim",
+    config = function()
+        require("mason").setup()
+    end
+},
 { "nvim-lua/plenary.nvim" },
-{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
 { "nvim-telescope/telescope.nvim", version = '*' },
 { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 { "rebelot/kanagawa.nvim" },

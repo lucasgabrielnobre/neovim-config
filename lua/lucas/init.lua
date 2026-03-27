@@ -21,6 +21,7 @@ vim.o.wrap = false;
 require("lucas.lazy")
 require("lucas.remaps")
 require("lucas.code-style")
+
 --require("lucas.colorschemes.gruvbox")
 require("lucas.colorschemes.kanagawa")
 --require("lucas.colorschemes.tokyonight")
