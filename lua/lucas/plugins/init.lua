@@ -12,30 +12,6 @@ return {
         }
     end
 },
-{
-        "HiPhish/rainbow-delimiters.nvim",
-        config = function()
-            local rainbow_delimiters = require("rainbow-delimiters")
-
-           vim.g.rainbow_delimiters = {
-                strategy = {
-                    [''] = rainbow_delimiters.strategy.global,
-                },
-                query = {
-                    [''] = 'rainbow-delimiters',
-                    ['cpp'] = 'rainbow-delimiters',
-                },
-                highlight = {
-                    'RainbowDelimiterViolet',
-                    'RainbowDelimiterYellow',
-                    'RainbowDelimiterBlue',
-                    'RainbowDelimiterOrange',
-                    --'RainbowDelimiterGreen',
-                    'RainbowDelimiterCyan',
-                },
-            }
-        end,
-    },
 
 {
     "mfussenegger/nvim-dap",
@@ -137,12 +113,6 @@ return {
 { "nvim-telescope/telescope.nvim", version = '*' },
 { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 { "rebelot/kanagawa.nvim" },
-{
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-},
 { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = {}}, 
 {
     'windwp/nvim-autopairs',
@@ -150,6 +120,29 @@ return {
     config = true,
     -- use opts = {} for passing setup options
     -- this is equivalent to setup({}) 
+},
+{
+    "zenbones-theme/zenbones.nvim",
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+    -- In Vim, compat mode is turned on as Lush only works in Neovim.
+    dependencies = "rktjmp/lush.nvim",
+    lazy = false,
+    priority = 1000,
+    -- you can set set configuration options here
+    -- config = function()
+    --     vim.g.zenbones_darken_comments = 45
+    --     vim.cmd.colorscheme('zenbones')
+    -- end
+},
+{
+  "blazkowolf/gruber-darker.nvim",
+  opts = {
+    bold = true,
+    italic = {
+      strings = false,
+    },
+  },
 },
 {
     "okuuva/auto-save.nvim",
@@ -177,8 +170,15 @@ return {
                 },
             },
         }
+        local api = require("nvim-tree.api")
+        local Event = api.events.Event
+
+        api.events.subscribe(Event.FileCreated, function(file)
+          vim.cmd("edit " .. vim.fn.fnameescape(file.fname))
+        end)
     end,
 },
+--[[
 {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -249,6 +249,7 @@ return {
 
         end, 
     },
+    --]]
     {
     "goolord/alpha-nvim",
     -- dependencies = { 'nvim-mini/mini.icons' },

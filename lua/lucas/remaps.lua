@@ -38,6 +38,23 @@ vim.keymap.set("n", "<F5>", function()
   vim.cmd("botright vs | terminal " .. cmd)
 end)
 
+vim.keymap.set("n", "<C-5>", function()
+  vim.cmd("w")
+
+  local ft = vim.bo.filetype
+  local cmd = ""
+
+  if ft == "cpp" then
+    cmd = "g++ -std=c++17 -Wall -O2 % -o %:r && ./%:r"
+  elseif ft == "python" then
+    cmd = "python3 %"
+  else
+    print("Filetype não suportado: " .. ft)
+    return
+  end
+
+  vim.cmd("botright vs | terminal " .. cmd)
+end)
 --[[
 vim.keymap.set("n", "<F8>", function()
   local dap = require("dap")
