@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>v", "<cmd>NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>v", "<cmd>Ex<CR>")
 
 local builtin = require('telescope.builtin')
 
@@ -20,6 +20,8 @@ end)
 
 vim.keymap.set('n', '<C-a>', ':%y+<CR>', { noremap = true, silent = true, desc = 'Copy Entire File' })
 
+vim.keymap.set('i', '<C-BS>', '<C-w>', { noremap = true, silent = true, desc = 'Delete previous word' })
+
 vim.keymap.set("n", "<F5>", function()
   vim.cmd("w")
 
@@ -30,6 +32,8 @@ vim.keymap.set("n", "<F5>", function()
     cmd = "g++ -std=c++17 -Wall -O2 % -o %:r && ./%:r"
   elseif ft == "python" then
     cmd = "python3 %"
+  elseif ft == "c" then
+    cmd = "gcc -Wall  % -lm -o %:r && ./%:r"
   else
     print("Filetype não suportado: " .. ft)
     return
@@ -38,6 +42,23 @@ vim.keymap.set("n", "<F5>", function()
   vim.cmd("botright vs | terminal " .. cmd)
 end)
 
+vim.keymap.set("n", "<F6>", function()
+  vim.cmd("w")
+
+  local ft = vim.bo.filetype
+  local cmd = ""
+
+  if ft == "cpp" then
+    cmd = "g++ -std=c++17 -Wall -O2 % -o %:r"
+  elseif ft == "python" then
+    cmd = "python3 -m py_compile %"
+  else
+    print("Filetype não suportado: " .. ft)
+    return
+  end
+
+  vim.cmd("botright vs | terminal " .. cmd)
+end, { desc = "Build current file" })
 vim.keymap.set("n", "<C-5>", function()
   vim.cmd("w")
 

@@ -7,13 +7,14 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*.cpp",
+    pattern = "*.c",
     callback = function()
         if vim.fn.line("$") == 1 and vim.fn.getline(1) == "" then
-            vim.cmd("0r ~/.config/nvim/templates/cpp.cpp")
+            vim.cmd("0r ~/.config/nvim/templates/c.c")
         end
     end
 })
+
 vim.opt.showmode = false
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 0

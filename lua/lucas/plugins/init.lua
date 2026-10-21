@@ -12,7 +12,35 @@ return {
         }
     end
 },
+{
+    "saadparwaiz1/cmp_luasnip",
+},
+{
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp",
+    config = function()
+        local ls = require("luasnip")
 
+        require("luasnip.loaders.from_lua").lazy_load({
+            paths = "~/.config/nvim/templates",
+        })
+
+        require("cmp").setup({
+            snippet = {
+                expand = function(args)
+                    require("luasnip").lsp_expand(args.body)
+                end,
+            },
+
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+    },
+})
+    end,
+},
 {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -154,6 +182,7 @@ return {
         -- or just leave it empty :)
     },
 },
+--[[
 {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -174,10 +203,12 @@ return {
         local Event = api.events.Event
 
         api.events.subscribe(Event.FileCreated, function(file)
-          vim.cmd("edit " .. vim.fn.fnameescape(file.fname))
+          vim.cmd("silent! edit " .. vim.fn.fnameescape(file.fname))
         end)
     end,
 },
+--]]
+
 --[[
 {
     'nvim-lualine/lualine.nvim',
@@ -247,19 +278,15 @@ return {
             extensions = {}
         }
 
-        end, 
-    },
-    --]]
-    {
-    "goolord/alpha-nvim",
-    -- dependencies = { 'nvim-mini/mini.icons' },
+    end, 
+},
+--]]
+{
+    'goolord/alpha-nvim',
+    event = "VimEnter",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local startify = require("alpha.themes.startify")
-      -- available: devicons, mini, default is mini
-      -- if provider not loaded and enabled is true, it will try to use another provider
-      startify.file_icons.provider = "devicons"
-         require'alpha'.setup(require'alpha.themes.dashboard'.config)
-    end,
-  },
+        require('alpha').setup(require('alpha.themes.startify').config)
+    end
+},
 }
